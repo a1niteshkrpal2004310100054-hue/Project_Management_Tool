@@ -9,22 +9,31 @@ const projectSchema = new Schema(
     description: {
       type: String,
     },
-    team: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Team",
-    },
+    teams: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Team",
+      },
+    ],
     tasks: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Tast",
       },
     ],
+    status: {
+      type: String,
+      enum: ["active", "inactive", "onhold", "pending", "completed"],
+      default: "inactive",
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    starts: { type: Date },
+    end: { type: Date },
   },
   { timestamps: true }
 );
 
-export const team = mongoose.model("Team", projectSchema);
+export const Project = mongoose.model("Project", projectSchema);

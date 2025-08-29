@@ -17,6 +17,8 @@ const generateRefreshToken = (userId) => {
   return jwt.sign({ userId }, SECRET, { expiresIn: "15d" });
 };
 
+const adminEmails = ["niteshpal4585@gmil.com"];
+
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
@@ -31,10 +33,15 @@ export const register = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
 
+    const isAdmin = adminEmails.includes(email);
+    const role = isAdmin ? "admin" : "user";
+
     const newUser = await User.create({
       name,
       email,
       password: hashPassword,
+      isAdmin,
+      role,
     });
     return res.status(200).json({ message: "User registered" }, newUser);
   } catch (error) {
@@ -71,12 +78,6 @@ export const userLogin = async (req, res) => {
       sameSite: "lax",
       strict: true,
       maxAge: 15 * 24 * 60 * 60 * 1000,
-    });
-    res.cookie("accessToken", accesToken, {
-      httpOnly: true,
-      sameSite: "lax",
-      strict: true,
-      maxAge: 15 * 60 * 1000,
     });
 
     return res.status(200).json({ message: "User loggedin", accesToken });
@@ -132,12 +133,9 @@ export const refresh = async (req, res) => {
         maxAge: 10 * 24 * 60 * 60 * 1000,
       });
 
-      res.cookie(accessToken, {
-        httpOnly: true,
-        sameSite: "lax",
-        strict: true,
-        maxAge: 15 * 60 * 1000,
-      });
+      return res
+        .status(201)
+        .json({ message: "tokens are regenerated ", accessToken });
     });
   } catch (error) {
     console.error(error);

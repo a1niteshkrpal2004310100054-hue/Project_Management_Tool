@@ -17,6 +17,15 @@ const userSchema = new Schema(
       trim: true,
       require: [true, "please provide a password"],
     },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
     teams: [
       {
         type: mongoose.Schema.Types.ObjectId,
