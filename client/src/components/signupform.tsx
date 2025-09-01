@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { api } from "../libs/api";
+import { useNavigate } from "react-router";
 
 interface Input {
   name: string;
@@ -9,6 +10,7 @@ interface Input {
 }
 
 const SignupForm = () => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -22,8 +24,15 @@ const SignupForm = () => {
   });
 
   const onSubmit: SubmitHandler<Input> = async (data) => {
-    const res = await api.post("/user/register", data);
-    console.log(res.data);
+    try {
+      const res = await api.post("/user/register", data);
+      console.log(res.data);
+      if (res.data.success) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -1,25 +1,42 @@
-import { Users, ListTodo, FolderKanban, ClipboardPlus } from "lucide-react";
+import {
+  Users,
+  ListTodo,
+  FolderKanban,
+  Settings,
+  Bell,
+  User2,
+} from "lucide-react";
 
 const navItems = [
   {
     name: "Project",
-    url: "#",
+    url: "/projects",
     icon: FolderKanban,
   },
   {
     name: "Team",
-    url: "#",
+    url: "/teams",
     icon: Users,
   },
   {
     name: "Tasks",
-    url: "#",
+    url: "/tasks",
     icon: ListTodo,
   },
   {
-    name: "Report",
+    name: "Users",
     url: "#",
-    icon: ClipboardPlus,
+    icon: User2,
+  },
+  {
+    name: "Notification",
+    url: "#",
+    icon: Bell,
+  },
+  {
+    name: "Settings",
+    url: "#",
+    icon: Settings,
   },
 ];
 

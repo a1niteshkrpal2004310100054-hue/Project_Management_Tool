@@ -47,12 +47,6 @@ const LoginForm = () => {
             <div className="grid gap-3">
               <div className="flex items-center">
                 <label htmlFor="password">Password</label>
-                {/* <a
-                  href="#"
-                  className="ml-auto text-sm underline-offset-4 hover:underline"
-                >
-                  Forgot your password?
-                </a> */}
               </div>
               <input
                 id="password"

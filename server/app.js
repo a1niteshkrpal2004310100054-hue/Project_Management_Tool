@@ -7,6 +7,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
 import cors from "cors";
+import apiRoutes from "./src/route/index";
 
 const app = express();
 dotenv.config();
@@ -30,6 +31,7 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
+app.use("/api", apiRoutes);
 app.get("/", (_, res) => {
   res.send("Hello");
 });

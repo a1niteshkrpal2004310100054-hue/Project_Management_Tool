@@ -40,7 +40,7 @@ export const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   );
 };
 
-const User = () => {
+export const User = () => {
   const context = useContext(AuthContext);
   if (!context) {
     console.log("User must be present in AuthCOntext");
